@@ -5,10 +5,10 @@ import (
 	"time"
 
 	core "github.com/FelipeStillner/ProjectPilot/services/task-manager/internal/core/struct"
-	"github.com/google/uuid"
 )
 
-type CreateTaskInput struct {
+type UpdateTaskInput struct {
+	Id          uint32 `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Priority    string `json:"priority"`
@@ -16,14 +16,14 @@ type CreateTaskInput struct {
 	Status      string `json:"status"`
 }
 
-func (t *TaskService) CreateTask(input CreateTaskInput) (*core.Task, error) {
+func (t *TaskService) UpdateTask(input UpdateTaskInput) (*core.Task, error) {
 	err := input.verify()
 	if err != nil {
 		return nil, err
 	}
 
 	task := core.Task{
-		Id:          uuid.New().ID(),
+		Id:          input.Id,
 		Name:        input.Name,
 		Description: input.Description,
 		Priority:    input.Priority,
@@ -33,10 +33,14 @@ func (t *TaskService) CreateTask(input CreateTaskInput) (*core.Task, error) {
 		UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
 	}
 
-	return t.taskRepo.Create(task)
+	return t.taskRepo.Update(task.Id, task)
 }
 
-func (input CreateTaskInput) verify() error {
+func (input UpdateTaskInput) verify() error {
+	if input.Id == 0 {
+		return errors.New("task id is required")
+	}
+
 	if input.Name == "" {
 		return errors.New("task name is required")
 	}
