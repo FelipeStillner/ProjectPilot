@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  # task-manager:
+  #   build:
+  #     context: ./services/task-manager
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - ${PORT_TASK_MANAGER}:8081
+  #   depends_on:
+  #     - postgres
+  #   restart: always
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - ${PORT_POSTGRES}:5432
+    environment:
+      - POSTGRES_USER=${USER_POSTGRES}
+      - POSTGRES_PASSWORD=${PASSWORD_POSTGRES}
+      - POSTGRES_DB=${DATABASE_POSTGRES}
