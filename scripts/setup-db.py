@@ -1,3 +1,4 @@
+from time import sleep
 import psycopg2
 import os
 from dotenv import load_dotenv
@@ -13,6 +14,7 @@ DATABASE_POSTGRES = os.getenv('DATABASE_POSTGRES')
 
 # Connect to the PostgreSQL server
 try:
+    sleep(1)
     connection = psycopg2.connect(
         host=HOST_POSTGRES,
         port=PORT_POSTGRES,
@@ -25,13 +27,13 @@ try:
     # SQL commands to create tables and set up the database
     create_table_sql = """
     CREATE TABLE IF NOT EXISTS tasks (
-        id SERIAL PRIMARY KEY,
+        id TEXT PRIMARY KEY,
         name TEXT NOT NULL,
-        created_at TIMESTAMP DEFAULT NOW()
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     """
     insert_default_task_sql = """
-    INSERT INTO tasks (name) VALUES ('Initial Task') ON CONFLICT DO NOTHING;
+    INSERT INTO tasks (id, name) VALUES ('1', 'Initial Task') ON CONFLICT DO NOTHING;
     """
 
     # Execute the SQL commands
