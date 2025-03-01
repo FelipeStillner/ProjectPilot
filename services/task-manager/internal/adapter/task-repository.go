@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	c "github.com/FelipeStillner/ProjectPilot/services/task-manager/internal/core/entities"
+	c "github.com/FelipeStillner/ProjectPilot/services/task-manager/internal/core/struct"
 	_ "github.com/lib/pq"
 )
 
@@ -34,12 +34,12 @@ func NewTaskRepository() *TaskRepository {
 }
 
 func (t *TaskRepository) SaveTask(task c.Task) error {
-	stmt, err := t.db.Prepare("INSERT INTO tasks (id, name, created_at) VALUES ($1, $2, $3)")
+	stmt, err := t.db.Prepare("INSERT INTO tasks (id, name, description, priority, assignee, status, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)")
 	if err != nil {
 		return err
 	}
 
-	_, err = stmt.Exec(task.Id, task.Name, task.CreatedAt)
+	_, err = stmt.Exec(task.Id, task.Name, task.Description, task.Priority, task.Assignee, task.Status, task.CreatedAt, task.UpdatedAt)
 	if err != nil {
 		return err
 	}

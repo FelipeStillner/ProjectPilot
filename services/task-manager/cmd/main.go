@@ -5,7 +5,7 @@ import (
 	"os"
 
 	a "github.com/FelipeStillner/ProjectPilot/services/task-manager/internal/adapter"
-	c "github.com/FelipeStillner/ProjectPilot/services/task-manager/internal/core/services"
+	c "github.com/FelipeStillner/ProjectPilot/services/task-manager/internal/core/service"
 	"github.com/joho/godotenv"
 )
 

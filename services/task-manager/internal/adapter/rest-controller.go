@@ -3,7 +3,7 @@ package adapter
 import (
 	"net/http"
 
-	core "github.com/FelipeStillner/ProjectPilot/services/task-manager/internal/core/services"
+	core "github.com/FelipeStillner/ProjectPilot/services/task-manager/internal/core/service"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,14 +18,12 @@ func NewRestController(taskService core.TaskService) *RestController {
 func (c *RestController) SetRoutes() *gin.Engine {
 	r := gin.Default()
 	r.POST("/create-task", func(ctx *gin.Context) {
-		var requestBody struct {
-			Name string `json:"name"`
-		}
+		var requestBody core.CreateTaskInput
 		if err := ctx.ShouldBindJSON(&requestBody); err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		if err := c.taskService.CreateTask(requestBody.Name); err != nil {
+		if err := c.taskService.CreateTask(requestBody); err != nil {
 			ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}

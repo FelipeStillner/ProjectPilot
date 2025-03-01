@@ -29,16 +29,17 @@ try:
     CREATE TABLE IF NOT EXISTS tasks (
         id TEXT PRIMARY KEY,
         name TEXT NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        description TEXT,
+        priority TEXT NOT NULL,
+        Assignee TEXT,
+        status TEXT NOT NULL,
+        created_at TIMESTAMP,
+        updated_at TIMESTAMP
     );
-    """
-    insert_default_task_sql = """
-    INSERT INTO tasks (id, name) VALUES ('1', 'Initial Task') ON CONFLICT DO NOTHING;
     """
 
     # Execute the SQL commands
     cursor.execute(create_table_sql)
-    cursor.execute(insert_default_task_sql)
 
     # Commit changes
     connection.commit()
