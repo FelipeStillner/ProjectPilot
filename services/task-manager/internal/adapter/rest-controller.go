@@ -2,6 +2,7 @@ package adapter
 
 import (
 	"net/http"
+	"os"
 	"strconv"
 
 	core "github.com/FelipeStillner/ProjectPilot/services/task-manager/internal/core/service"
@@ -16,8 +17,22 @@ func NewRestController(taskService core.TaskService) *RestController {
 	return &RestController{taskService: taskService}
 }
 
-func (c *RestController) SetRoutes() *gin.Engine {
+func (c *RestController) Run() error {
+	r := c.createEngine()
+	port := os.Getenv("PORT_TASK_MANAGER")
+	return r.Run(":" + port)
+}
+
+func (c *RestController) createEngine() *gin.Engine {
 	r := gin.Default()
+	setRouteCreateTask(r, c)
+	setRouteReadTask(r, c)
+	setRouteUpdateTask(r, c)
+	setRouteDeleteTask(r, c)
+	return r
+}
+
+func setRouteCreateTask(r *gin.Engine, c *RestController) {
 	r.POST("/task", func(ctx *gin.Context) {
 		var requestBody core.CreateTaskInput
 		if err := ctx.ShouldBindJSON(&requestBody); err != nil {
@@ -31,6 +46,9 @@ func (c *RestController) SetRoutes() *gin.Engine {
 		}
 		ctx.JSON(http.StatusOK, task)
 	})
+}
+
+func setRouteReadTask(r *gin.Engine, c *RestController) {
 	r.GET("/task/:id", func(ctx *gin.Context) {
 		id := ctx.Param("id")
 		idUint, err := strconv.ParseUint(id, 10, 32)
@@ -46,6 +64,9 @@ func (c *RestController) SetRoutes() *gin.Engine {
 		}
 		ctx.JSON(http.StatusOK, task)
 	})
+}
+
+func setRouteUpdateTask(r *gin.Engine, c *RestController) {
 	r.PATCH("/task", func(ctx *gin.Context) {
 		var requestBody core.UpdateTaskInput
 		if err := ctx.ShouldBindJSON(&requestBody); err != nil {
@@ -59,6 +80,9 @@ func (c *RestController) SetRoutes() *gin.Engine {
 		}
 		ctx.JSON(http.StatusOK, task)
 	})
+}
+
+func setRouteDeleteTask(r *gin.Engine, c *RestController) {
 	r.DELETE("/task/:id", func(ctx *gin.Context) {
 		id := ctx.Param("id")
 		idUint, err := strconv.ParseUint(id, 10, 32)
@@ -74,5 +98,4 @@ func (c *RestController) SetRoutes() *gin.Engine {
 		}
 		ctx.JSON(http.StatusOK, gin.H{"status": "task deleted"})
 	})
-	return r
 }
