@@ -9,6 +9,13 @@ services:
   #   depends_on:
   #     - postgres
   #   restart: always
+  # text-interpreter:
+  #   build:
+  #     context: ./services/text-interpreter
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - ${PORT_TEXT_INTERPRETER}:8082
+  #   restart: always
   postgres:
     image: postgres:16-alpine
     ports:
