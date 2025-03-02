@@ -1,6 +1,7 @@
 package adapter
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 	"strconv"
@@ -18,8 +19,10 @@ func NewRestController(taskService core.TaskService) *RestController {
 }
 
 func (c *RestController) Run() error {
+	gin.SetMode(gin.ReleaseMode)
 	r := c.createEngine()
-	port := os.Getenv("PORT_TASK_MANAGER")
+	port := os.Getenv("PORT_HTTP_TASK_MANAGER")
+	fmt.Println("Starting HTTP server on port " + port)
 	return r.Run(":" + port)
 }
 

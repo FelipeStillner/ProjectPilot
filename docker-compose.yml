@@ -5,7 +5,8 @@ services:
   #     context: ./services/task-manager
   #     dockerfile: Dockerfile
   #   ports:
-  #     - ${PORT_TASK_MANAGER}:8081
+  #     - ${PORT_HTTP_TASK_MANAGER}:${PORT_HTTP_TASK_MANAGER}
+  #     - ${PORT_GRPC_TASK_MANAGER}:${PORT_GRPC_TASK_MANAGER}
   #   depends_on:
   #     - postgres
   #   restart: always
@@ -14,7 +15,7 @@ services:
   #     context: ./services/text-interpreter
   #     dockerfile: Dockerfile
   #   ports:
-  #     - ${PORT_TEXT_INTERPRETER}:8082
+  #     - ${PORT_TEXT_INTERPRETER}:${PORT_TEXT_INTERPRETER}
   #   restart: always
   postgres:
     image: postgres:16-alpine

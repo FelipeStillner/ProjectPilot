@@ -19,8 +19,10 @@ func main() {
 	taskRepo := a.NewTaskRepository()
 	taskService := c.NewTaskService(taskRepo)
 	restController := a.NewRestController(*taskService)
+	grpcController := a.NewGrpcController(*taskService)
 
 	go restController.Run()
+	go grpcController.Run()
 
 	select {}
 }
