@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package taskmanager;
+package task_manager;
 
 option go_package = "/proto";
 

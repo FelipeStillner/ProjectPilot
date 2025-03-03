@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package text_interpreter;
+
+service TaskManager {
+  rpc InterpreteText(InterpreteTextRequest) returns (InterpreteTextResponse);
+}
+
+message InterpreteTextRequest {
+  string text = 1;
+}
+
+message InterpreteTextResponse {
+  string status = 1;
+}
