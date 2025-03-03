@@ -2,14 +2,14 @@ syntax = "proto3";
 
 package text_interpreter;
 
-service TaskManager {
-  rpc InterpreteText(InterpreteTextRequest) returns (InterpreteTextResponse);
+service TextInterpreter {
+  rpc InterpretText(InterpretTextRequest) returns (InterpretTextResponse);
 }
 
-message InterpreteTextRequest {
+message InterpretTextRequest {
   string text = 1;
 }
 
-message InterpreteTextResponse {
+message InterpretTextResponse {
   string status = 1;
 }
