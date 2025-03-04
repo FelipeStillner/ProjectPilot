@@ -14,9 +14,9 @@ service TaskManager {
 message CreateTaskRequest {
   string name = 1;
   string description = 2;
-  string priority = 3;
-  string assignee = 4;
-  string status = 5;
+  TaskPriority priority = 3;
+  uint32 assignee = 4;
+  TaskStatus status = 5;
 }
 
 message ReadTaskRequest {
@@ -27,9 +27,9 @@ message UpdateTaskRequest {
   uint32 id = 1;
   string name = 2;
   string description = 3;
-  string priority = 4;
-  string assignee = 5;
-  string status = 6;
+  TaskPriority priority = 4;
+  uint32 assignee = 5;
+  TaskStatus status = 6;
 }
 
 message DeleteTaskRequest {
@@ -37,16 +37,34 @@ message DeleteTaskRequest {
 }
 
 message TaskResponse {
-  uint32 id = 1;
-  string name = 2;
-  string description = 3;
-  string priority = 4;
-  string assignee = 5;
-  string status = 6;
-  string created_at = 7;
-  string updated_at = 8;
+  bool success = 1;
+  string message = 2;
+  uint32 id = 3;
+  string name = 4;
+  string description = 5;
+  TaskPriority priority = 6;
+  uint32 assignee = 7;
+  TaskStatus status = 8;
+  string created_at = 9;
+  string updated_at = 10;
+  string deleted_at = 11;
 }
 
 message DeleteTaskResponse {
-  string status = 1;
+  bool success = 1;
+  string message = 2;  
+}
+
+enum TaskStatus {
+  BACKLOG = 0;
+  TODO = 1;
+  IN_PROGRESS = 2;
+  DONE = 3;
+}
+
+enum TaskPriority {
+  LOW = 0;
+  MEDIUM = 1;
+  HIGH = 2;
+  URGENT = 3;
 }

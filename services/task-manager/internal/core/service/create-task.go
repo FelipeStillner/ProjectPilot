@@ -12,7 +12,7 @@ type CreateTaskInput struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Priority    string `json:"priority"`
-	Assignee    string `json:"assignee"`
+	Assignee    uint32 `json:"assignee"`
 	Status      string `json:"status"`
 }
 
@@ -29,8 +29,8 @@ func (t *TaskService) CreateTask(input CreateTaskInput) (*core.Task, error) {
 		Priority:    input.Priority,
 		Assignee:    input.Assignee,
 		Status:      input.Status,
-		CreatedAt:   time.Now().Format("2006-01-02 15:04:05"),
-		UpdatedAt:   time.Now().Format("2006-01-02 15:04:05"),
+		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
 	}
 
 	return t.taskRepo.Create(task)

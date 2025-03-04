@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+	"time"
 
 	c "github.com/FelipeStillner/ProjectPilot/services/task-manager/internal/core/struct"
 	_ "github.com/lib/pq"
@@ -78,12 +79,12 @@ func (t *TaskRepository) Update(id uint32, task c.Task) (*c.Task, error) {
 }
 
 func (t *TaskRepository) Delete(id uint32) error {
-	stmt, err := t.db.Prepare("DELETE FROM tasks WHERE id = $1")
+	stmt, err := t.db.Prepare("UPDATE tasks SET deleted_at = $1 WHERE id = $2")
 	if err != nil {
 		return err
 	}
 
-	_, err = stmt.Exec(id)
+	_, err = stmt.Exec(time.Now(), id)
 	if err != nil {
 		return err
 	}
