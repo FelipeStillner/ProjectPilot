@@ -4,8 +4,11 @@ import proto.task_manager_pb2
 import proto.task_manager_pb2_grpc
 import proto.text_interpreter_pb2
 import proto.text_interpreter_pb2_grpc
+from openai import OpenAI
 import os
 from dotenv import load_dotenv
+import json
+
 
 # gRPC Client for TaskManager
 class TaskManagerClient:
@@ -48,27 +51,38 @@ class TextInterpreterServicer(proto.text_interpreter_pb2_grpc.TextInterpreterSer
             )
 
         return proto.text_interpreter_pb2.InterpretTextResponse(
-            status="Tasks processed successfully"
+            success=True, message="Tasks processed successfully"
         )
 
     def extract_tasks_from_text(self, text):
-        # Mock implementation
-        tasks = [
+        client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+        completion = client.chat.completions.create(
+            model="gpt-4o-mini",
+            store=True,
+            messages=[
+                {
+                    "role": "user",
+                    "content": """Parse the next message text and extract tasks following the exact format for your response:
+                    [
             {
                 "name": "Task 1",
                 "description": "Task 1 description",
-                "priority": "1",
-                "assignee": "User 1",
-                "status": "In Progress",
+                "priority": "HIGH",
+                "assignee": 1,
+                "status": "TODO",
             },
-            {
-                "name": "Task 2",
-                "description": "Task 2 description",
-                "priority": "2",
-                "assignee": "User 2",
-                "status": "To Do",
-            },
-        ]
+        ]""",
+                },
+                {
+                    "role": "user",
+                    "content": text,
+                }
+            ],
+        )
+
+        tasksJsonString = completion.choices[0].message.content
+        tasks = json.loads(tasksJsonString)
         return tasks
 
 
