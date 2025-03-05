@@ -35,12 +35,25 @@ func NewUserRepository() *UserRepository {
 }
 
 func (t *UserRepository) Create(user c.User) (*c.User, error) {
-	stmt, err := t.db.Prepare("INSERT INTO user (id, username, password, team_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6)")
+	stmt, err := t.db.Prepare("INSERT INTO \"user\" (id, username, password, team_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6)")
 	if err != nil {
 		return nil, err
 	}
 
 	_, err = stmt.Exec(user.Id, user.Username, user.Password, user.TeamId, time.Now(), time.Now())
+	if err != nil {
+		return nil, err
+	}
+
+	return &user, nil
+}
+
+func (t *UserRepository) Read(username string) (*c.User, error) {
+	query := "SELECT id, username, password, team_id FROM \"user\" WHERE username = $1"
+	row := t.db.QueryRow(query, username)
+
+	var user c.User
+	err := row.Scan(&user.Id, &user.Username, &user.Password, &user.TeamId)
 	if err != nil {
 		return nil, err
 	}

@@ -17,6 +17,17 @@ services:
   #   ports:
   #     - ${PORT_TEXT_INTERPRETER}:${PORT_TEXT_INTERPRETER}
   #   restart: always
+  # access-manager:
+  #   build:
+  #     context: ./services/access-manager
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - ${PORT_HTTP_ACCESS_MANAGER}:${PORT_HTTP_ACCESS_MANAGER}
+  #     - ${PORT_GRPC_ACCESS_MANAGER}:${PORT_GRPC_ACCESS_MANAGER}
+  #   depends_on:
+  #     - postgres
+  #     - redis
+  #   restart: always
   postgres:
     image: postgres:16-alpine
     ports:
@@ -25,3 +36,7 @@ services:
       - POSTGRES_USER=${USER_POSTGRES}
       - POSTGRES_PASSWORD=${PASSWORD_POSTGRES}
       - POSTGRES_DB=${DATABASE_POSTGRES}
+  redis:
+    image: redis:7-alpine
+    ports:
+      - ${PORT_REDIS}:6379

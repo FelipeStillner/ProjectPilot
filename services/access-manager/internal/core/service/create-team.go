@@ -23,6 +23,7 @@ func (s *AccessService) CreateTeam(input CreateTeamInput) (*core.Team, error) {
 	}
 
 	user := core.User{
+		Id:       uuid.New().ID(),
 		Username: input.Username,
 		Password: input.Password,
 		TeamId:   team.Id,
