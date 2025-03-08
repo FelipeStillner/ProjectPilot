@@ -2,9 +2,6 @@ package core
 
 import (
 	"errors"
-	"time"
-
-	"github.com/google/uuid"
 )
 
 type LoginInput struct {
@@ -12,7 +9,7 @@ type LoginInput struct {
 	Password string
 }
 
-func (s *AccessService) Login(input LoginInput) (*string, error) {
+func (s *AccessService) Login(input LoginInput) (*uint32, error) {
 	err := input.verify()
 	if err != nil {
 		return nil, err
@@ -27,11 +24,7 @@ func (s *AccessService) Login(input LoginInput) (*string, error) {
 		return nil, errors.New("invalid password")
 	}
 
-	token := uuid.New().String()
-
-	s.cache.Set(token, "valid", time.Duration(24*time.Hour))
-
-	return &token, nil
+	return &user.Id, nil
 }
 
 func (input LoginInput) verify() error {

@@ -45,5 +45,5 @@ message UserResponse {
 message LoginResponse {
   bool success = 1;
   string message = 2;  
-  string token = 3;  
+  uint32 user_id = 3;  
 }

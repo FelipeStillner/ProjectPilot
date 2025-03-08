@@ -95,6 +95,6 @@ func (c *GrpcController) Login(ctx context.Context, req *pb.LoginRequest) (*pb.L
 	return &pb.LoginResponse{
 		Success: true,
 		Message: "Login successful",
-		Token:   *output,
+		UserId:  *output,
 	}, nil
 }

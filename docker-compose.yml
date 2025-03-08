@@ -36,7 +36,7 @@ services:
       - POSTGRES_USER=${USER_POSTGRES}
       - POSTGRES_PASSWORD=${PASSWORD_POSTGRES}
       - POSTGRES_DB=${DATABASE_POSTGRES}
-  redis:
-    image: redis:7-alpine
-    ports:
-      - ${PORT_REDIS}:6379
+  # redis:
+  #   image: redis:7-alpine
+  #   ports:
+  #     - ${PORT_REDIS}:6379

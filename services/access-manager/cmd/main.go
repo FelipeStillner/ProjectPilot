@@ -18,8 +18,7 @@ func init() {
 func main() {
 	teamRepo := adapter.NewTeamRepository()
 	userRepo := adapter.NewUserRepository()
-	redis := adapter.NewRedis()
-	accessService := core.NewAccessService(userRepo, teamRepo, redis)
+	accessService := core.NewAccessService(userRepo, teamRepo)
 	restController := adapter.NewRestController(*accessService)
 	grpcController := adapter.NewGrpcController(*accessService)
 
