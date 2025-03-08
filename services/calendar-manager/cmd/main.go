@@ -18,10 +18,8 @@ func init() {
 func main() {
 	eventRepo := a.NewEventRepository()
 	calendarService := c.NewCalendarService(eventRepo)
-	restController := a.NewRestController(*calendarService)
 	grpcController := a.NewGrpcController(*calendarService)
 
-	go restController.Run()
 	go grpcController.Run()
 
 	select {}

@@ -19,10 +19,8 @@ func main() {
 	teamRepo := adapter.NewTeamRepository()
 	userRepo := adapter.NewUserRepository()
 	accessService := core.NewAccessService(userRepo, teamRepo)
-	restController := adapter.NewRestController(*accessService)
 	grpcController := adapter.NewGrpcController(*accessService)
 
-	go restController.Run()
 	go grpcController.Run()
 
 	select {}
