@@ -36,6 +36,13 @@ func (t *CalendarService) CreateEvent(input CreateEventInput) (*core.Event, erro
 		Attendees:   input.Attendees,
 	}
 
+	for _, integration := range t.integrations {
+		err := integration.Create(event)
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	return t.eventRepo.Create(event)
 }
 

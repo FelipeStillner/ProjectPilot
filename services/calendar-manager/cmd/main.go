@@ -5,6 +5,7 @@ import (
 
 	a "github.com/FelipeStillner/ProjectPilot/services/calendar-manager/internal/adapter"
 	c "github.com/FelipeStillner/ProjectPilot/services/calendar-manager/internal/core/service"
+	"github.com/FelipeStillner/ProjectPilot/services/calendar-manager/internal/port"
 	"github.com/joho/godotenv"
 )
 
@@ -17,7 +18,9 @@ func init() {
 
 func main() {
 	eventRepo := a.NewEventRepository()
-	calendarService := c.NewCalendarService(eventRepo)
+	googleIntegration := a.NewGoogleIntegration()
+	integrations := []port.IntegrationInterface{googleIntegration}
+	calendarService := c.NewCalendarService(eventRepo, integrations)
 	grpcController := a.NewGrpcController(*calendarService)
 
 	go grpcController.Run()

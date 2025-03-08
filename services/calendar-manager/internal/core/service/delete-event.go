@@ -14,6 +14,18 @@ func (t *CalendarService) DeleteEvent(input DeleteEventInput) error {
 		return err
 	}
 
+	event, err := t.eventRepo.Read(input.Id)
+	if err != nil {
+		return err
+	}
+
+	for _, integration := range t.integrations {
+		err := integration.Create(*event)
+		if err != nil {
+			return err
+		}
+	}
+
 	return t.eventRepo.Delete(input.Id)
 }
 
