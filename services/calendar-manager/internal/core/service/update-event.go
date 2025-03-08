@@ -8,11 +8,12 @@ import (
 )
 
 type UpdateEventInput struct {
-	Id          uint32 `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Time        string `json:"time"`
-	Duration    uint32 `json:"duration"`
+	Id          uint32   `json:"id"`
+	Name        string   `json:"name"`
+	Description string   `json:"description"`
+	Time        string   `json:"time"`
+	Duration    uint32   `json:"duration"`
+	Attendees   []uint32 `json:"attendees"`
 }
 
 func (t *CalendarService) UpdateEvent(input UpdateEventInput) (*core.Event, error) {
@@ -32,6 +33,7 @@ func (t *CalendarService) UpdateEvent(input UpdateEventInput) (*core.Event, erro
 		Description: input.Description,
 		Time:        Time,
 		Duration:    input.Duration,
+		Attendees:   input.Attendees,
 		CreatedAt:   time.Now(),
 		UpdatedAt:   time.Now(),
 	}

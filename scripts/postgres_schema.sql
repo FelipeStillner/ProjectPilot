@@ -55,7 +55,8 @@ CREATE TABLE event (
     name TEXT NOT NULL,
     description TEXT,
     time TIMESTAMP NOT NULL,
-    duration INT NOT NULL,
+    duration INTEGER NOT NULL,
+    attendess INTEGER[] NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
     deleted_at TIMESTAMP

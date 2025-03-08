@@ -9,10 +9,11 @@ import (
 )
 
 type CreateEventInput struct {
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Time        string `json:"time"`
-	Duration    uint32 `json:"duration"`
+	Name        string   `json:"name"`
+	Description string   `json:"description"`
+	Time        string   `json:"time"`
+	Duration    uint32   `json:"duration"`
+	Attendees   []uint32 `json:"attendees"`
 }
 
 func (t *CalendarService) CreateEvent(input CreateEventInput) (*core.Event, error) {
@@ -32,6 +33,7 @@ func (t *CalendarService) CreateEvent(input CreateEventInput) (*core.Event, erro
 		Description: input.Description,
 		Time:        Time,
 		Duration:    input.Duration,
+		Attendees:   input.Attendees,
 		CreatedAt:   time.Now(),
 		UpdatedAt:   time.Now(),
 	}

@@ -35,12 +35,12 @@ func NewEventRepository() *EventRepository {
 }
 
 func (t *EventRepository) Create(event c.Event) (*c.Event, error) {
-	stmt, err := t.db.Prepare("INSERT INTO event (id, name, description, time, duration, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7)")
+	stmt, err := t.db.Prepare("INSERT INTO event (id, name, description, time, duration, attendees, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)")
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = stmt.Exec(event.Id, event.Name, event.Description, event.Time, event.Duration, event.CreatedAt, event.UpdatedAt)
+	_, err = stmt.Exec(event.Id, event.Name, event.Description, event.Time, event.Duration, event.Attendees, event.CreatedAt, event.UpdatedAt)
 	if err != nil {
 		return nil, err
 	}
@@ -51,12 +51,12 @@ func (t *EventRepository) Create(event c.Event) (*c.Event, error) {
 func (t *EventRepository) Read(id uint32) (*c.Event, error) {
 	var event c.Event
 
-	stmt, err := t.db.Prepare("SELECT id, name, description, time, duration, created_at, updated_at FROM event WHERE id = $1")
+	stmt, err := t.db.Prepare("SELECT id, name, description, time, duration, attendees, created_at, updated_at FROM event WHERE id = $1")
 	if err != nil {
 		return nil, err
 	}
 
-	err = stmt.QueryRow(id).Scan(&event.Id, &event.Name, &event.Description, &event.Time, &event.Duration, &event.CreatedAt, &event.UpdatedAt)
+	err = stmt.QueryRow(id).Scan(&event.Id, &event.Name, &event.Description, &event.Time, &event.Duration, &event.Attendees, &event.CreatedAt, &event.UpdatedAt)
 	if err != nil {
 		return nil, err
 	}
@@ -65,12 +65,12 @@ func (t *EventRepository) Read(id uint32) (*c.Event, error) {
 }
 
 func (t *EventRepository) Update(id uint32, event c.Event) (*c.Event, error) {
-	stmt, err := t.db.Prepare("UPDATE event SET name = $1, description = $2, time = $3, duration = $4, updated_at = $5 WHERE id = $6")
+	stmt, err := t.db.Prepare("UPDATE event SET name = $1, description = $2, time = $3, duration = $4, attendees = $5, updated_at = $5 WHERE id = $6")
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = stmt.Exec(event.Name, event.Description, event.Time, event.Duration, event.UpdatedAt, id)
+	_, err = stmt.Exec(event.Name, event.Description, event.Time, event.Duration, event.Attendees, event.UpdatedAt, id)
 	if err != nil {
 		return nil, err
 	}

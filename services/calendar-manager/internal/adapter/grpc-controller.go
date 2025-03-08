@@ -40,6 +40,7 @@ func (c *GrpcController) CreateEvent(ctx context.Context, req *pb.CreateEventReq
 		Description: req.Description,
 		Time:        req.Time,
 		Duration:    req.Duration,
+		Attendees:   req.Attendees,
 	}
 	event, err := c.calendarService.CreateEvent(input)
 	if err != nil {
@@ -57,6 +58,7 @@ func (c *GrpcController) CreateEvent(ctx context.Context, req *pb.CreateEventReq
 		Description: event.Description,
 		Time:        event.Time.Format(time.RFC3339),
 		Duration:    event.Duration,
+		Attendees:   event.Attendees,
 		CreatedAt:   event.CreatedAt.Format(time.RFC3339),
 		UpdatedAt:   event.UpdatedAt.Format(time.RFC3339),
 		DeletedAt:   event.DeletedAt.Format(time.RFC3339),
@@ -81,6 +83,7 @@ func (c *GrpcController) ReadEvent(ctx context.Context, req *pb.ReadEventRequest
 		Description: event.Description,
 		Time:        event.Time.Format(time.RFC3339),
 		Duration:    event.Duration,
+		Attendees:   event.Attendees,
 		CreatedAt:   event.CreatedAt.Format(time.RFC3339),
 		UpdatedAt:   event.UpdatedAt.Format(time.RFC3339),
 		DeletedAt:   event.DeletedAt.Format(time.RFC3339),
@@ -94,6 +97,7 @@ func (c *GrpcController) UpdateEvent(ctx context.Context, req *pb.UpdateEventReq
 		Description: req.Description,
 		Time:        req.Time,
 		Duration:    req.Duration,
+		Attendees:   req.Attendees,
 	}
 	event, err := c.calendarService.UpdateEvent(input)
 	if err != nil {
@@ -111,6 +115,7 @@ func (c *GrpcController) UpdateEvent(ctx context.Context, req *pb.UpdateEventReq
 		Description: event.Description,
 		Time:        event.Time.Format(time.RFC3339),
 		Duration:    event.Duration,
+		Attendees:   event.Attendees,
 		CreatedAt:   event.CreatedAt.Format(time.RFC3339),
 		UpdatedAt:   event.UpdatedAt.Format(time.RFC3339),
 		DeletedAt:   event.DeletedAt.Format(time.RFC3339),
