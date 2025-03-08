@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package calendar_manager;
+
+option go_package = "/proto";
+
+service CalendarManager {
+  rpc CreateEvent(CreateEventRequest) returns (EventResponse);
+  rpc ReadEvent(ReadEventRequest) returns (EventResponse);
+  rpc UpdateEvent(UpdateEventRequest) returns (EventResponse);
+  rpc DeleteEvent(DeleteEventRequest) returns (DeleteEventResponse);
+}
+
+message CreateEventRequest {
+  string name = 1;
+  string description = 2;
+  string time = 3;
+  uint32 duration = 4;
+}
+
+message ReadEventRequest {
+  uint32 id = 1;
+}
+
+message UpdateEventRequest {
+  uint32 id = 1;
+  string name = 2;
+  string description = 3;
+  string time = 4;
+  uint32 duration = 5;
+}
+
+message DeleteEventRequest {
+  uint32 id = 1;
+}
+
+message EventResponse {
+  bool success = 1;
+  string message = 2;  
+  uint32 id = 3;
+  string name = 4;
+  string description = 5;
+  string time = 6;
+  uint32 duration = 7;
+  string created_at = 8;
+  string updated_at = 9;
+  string deleted_at = 10;
+}
+
+message DeleteEventResponse {
+  bool success = 1;
+  string message = 2;  
+}

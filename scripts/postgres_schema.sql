@@ -46,3 +46,17 @@ CREATE TABLE "user" (
     updated_at TIMESTAMP NOT NULL,
     deleted_at TIMESTAMP
 );
+
+-- Drop the event table if it exists
+DROP TABLE IF EXISTS event;
+-- Create the event table
+CREATE TABLE event (
+    id BIGINT PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    time TIMESTAMP NOT NULL,
+    duration INT NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
+    deleted_at TIMESTAMP
+);
