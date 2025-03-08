@@ -35,12 +35,12 @@ func NewTaskRepository() *TaskRepository {
 }
 
 func (t *TaskRepository) Create(task c.Task) (*c.Task, error) {
-	stmt, err := t.db.Prepare("INSERT INTO tasks (id, name, description, priority, assignee, status, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)")
+	stmt, err := t.db.Prepare("INSERT INTO tasks (id, name, description, priority, assignee, status, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $7)")
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = stmt.Exec(task.Id, task.Name, task.Description, task.Priority, task.Assignee, task.Status, task.CreatedAt, task.UpdatedAt)
+	_, err = stmt.Exec(task.Id, task.Name, task.Description, task.Priority, task.Assignee, task.Status, time.Now())
 	if err != nil {
 		return nil, err
 	}
@@ -51,12 +51,12 @@ func (t *TaskRepository) Create(task c.Task) (*c.Task, error) {
 func (t *TaskRepository) Read(id uint32) (*c.Task, error) {
 	var task c.Task
 
-	stmt, err := t.db.Prepare("SELECT id, name, description, priority, assignee, status, created_at, updated_at FROM tasks WHERE id = $1")
+	stmt, err := t.db.Prepare("SELECT id, name, description, priority, assignee, status FROM tasks WHERE id = $1")
 	if err != nil {
 		return nil, err
 	}
 
-	err = stmt.QueryRow(id).Scan(&task.Id, &task.Name, &task.Description, &task.Priority, &task.Assignee, &task.Status, &task.CreatedAt, &task.UpdatedAt)
+	err = stmt.QueryRow(id).Scan(&task.Id, &task.Name, &task.Description, &task.Priority, &task.Assignee, &task.Status)
 	if err != nil {
 		return nil, err
 	}
@@ -70,7 +70,7 @@ func (t *TaskRepository) Update(id uint32, task c.Task) (*c.Task, error) {
 		return nil, err
 	}
 
-	_, err = stmt.Exec(task.Name, task.Description, task.Priority, task.Assignee, task.Status, task.UpdatedAt, id)
+	_, err = stmt.Exec(task.Name, task.Description, task.Priority, task.Assignee, task.Status, time.Now(), id)
 	if err != nil {
 		return nil, err
 	}

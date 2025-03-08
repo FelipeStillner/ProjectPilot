@@ -35,12 +35,12 @@ func NewTeamRepository() *TeamRepository {
 }
 
 func (t *TeamRepository) Create(team c.Team) (*c.Team, error) {
-	stmt, err := t.db.Prepare("INSERT INTO team (id, name, created_at, updated_at) VALUES ($1, $2, $3, $4)")
+	stmt, err := t.db.Prepare("INSERT INTO team (id, name, created_at, updated_at) VALUES ($1, $2, $3, $3)")
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = stmt.Exec(team.Id, team.Name, time.Now(), time.Now())
+	_, err = stmt.Exec(team.Id, team.Name, time.Now())
 	if err != nil {
 		return nil, err
 	}

@@ -45,9 +45,6 @@ message EventResponse {
   string time = 6;
   uint32 duration = 7;
   repeated uint32 attendees = 8;
-  string created_at = 9;
-  string updated_at = 10;
-  string deleted_at = 11;
 }
 
 message DeleteEventResponse {

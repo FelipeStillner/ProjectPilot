@@ -2,7 +2,6 @@ package core
 
 import (
 	"errors"
-	"time"
 
 	core "github.com/FelipeStillner/ProjectPilot/services/task-manager/internal/core/struct"
 	"github.com/google/uuid"
@@ -29,8 +28,6 @@ func (t *TaskService) CreateTask(input CreateTaskInput) (*core.Task, error) {
 		Priority:    input.Priority,
 		Assignee:    input.Assignee,
 		Status:      input.Status,
-		CreatedAt:   time.Now(),
-		UpdatedAt:   time.Now(),
 	}
 
 	return t.taskRepo.Create(task)

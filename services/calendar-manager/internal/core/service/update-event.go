@@ -34,8 +34,6 @@ func (t *CalendarService) UpdateEvent(input UpdateEventInput) (*core.Event, erro
 		Time:        Time,
 		Duration:    input.Duration,
 		Attendees:   input.Attendees,
-		CreatedAt:   time.Now(),
-		UpdatedAt:   time.Now(),
 	}
 
 	return t.eventRepo.Update(event.Id, event)

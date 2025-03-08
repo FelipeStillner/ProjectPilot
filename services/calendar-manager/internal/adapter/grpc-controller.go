@@ -59,9 +59,6 @@ func (c *GrpcController) CreateEvent(ctx context.Context, req *pb.CreateEventReq
 		Time:        event.Time.Format(time.RFC3339),
 		Duration:    event.Duration,
 		Attendees:   event.Attendees,
-		CreatedAt:   event.CreatedAt.Format(time.RFC3339),
-		UpdatedAt:   event.UpdatedAt.Format(time.RFC3339),
-		DeletedAt:   event.DeletedAt.Format(time.RFC3339),
 	}, nil
 }
 
@@ -84,9 +81,6 @@ func (c *GrpcController) ReadEvent(ctx context.Context, req *pb.ReadEventRequest
 		Time:        event.Time.Format(time.RFC3339),
 		Duration:    event.Duration,
 		Attendees:   event.Attendees,
-		CreatedAt:   event.CreatedAt.Format(time.RFC3339),
-		UpdatedAt:   event.UpdatedAt.Format(time.RFC3339),
-		DeletedAt:   event.DeletedAt.Format(time.RFC3339),
 	}, nil
 }
 
@@ -116,9 +110,6 @@ func (c *GrpcController) UpdateEvent(ctx context.Context, req *pb.UpdateEventReq
 		Time:        event.Time.Format(time.RFC3339),
 		Duration:    event.Duration,
 		Attendees:   event.Attendees,
-		CreatedAt:   event.CreatedAt.Format(time.RFC3339),
-		UpdatedAt:   event.UpdatedAt.Format(time.RFC3339),
-		DeletedAt:   event.DeletedAt.Format(time.RFC3339),
 	}, nil
 }
 

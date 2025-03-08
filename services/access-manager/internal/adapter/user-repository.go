@@ -35,12 +35,12 @@ func NewUserRepository() *UserRepository {
 }
 
 func (t *UserRepository) Create(user c.User) (*c.User, error) {
-	stmt, err := t.db.Prepare("INSERT INTO \"user\" (id, username, password, team_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6)")
+	stmt, err := t.db.Prepare("INSERT INTO \"user\" (id, username, password, team_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $5)")
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = stmt.Exec(user.Id, user.Username, user.Password, user.TeamId, time.Now(), time.Now())
+	_, err = stmt.Exec(user.Id, user.Username, user.Password, user.TeamId, time.Now())
 	if err != nil {
 		return nil, err
 	}

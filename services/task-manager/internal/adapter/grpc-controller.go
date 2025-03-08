@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net"
 	"os"
-	"time"
 
 	core "github.com/FelipeStillner/ProjectPilot/services/task-manager/internal/core/service"
 	pb "github.com/FelipeStillner/ProjectPilot/services/task-manager/proto"
@@ -59,9 +58,6 @@ func (c *GrpcController) CreateTask(ctx context.Context, req *pb.CreateTaskReque
 		Priority:    pb.TaskPriority(pb.TaskPriority_value[task.Priority]),
 		Assignee:    uint32(task.Assignee),
 		Status:      pb.TaskStatus(pb.TaskStatus_value[task.Status]),
-		CreatedAt:   task.CreatedAt.Format(time.RFC3339),
-		UpdatedAt:   task.UpdatedAt.Format(time.RFC3339),
-		DeletedAt:   task.DeletedAt.Format(time.RFC3339),
 	}, nil
 }
 
@@ -84,9 +80,6 @@ func (c *GrpcController) ReadTask(ctx context.Context, req *pb.ReadTaskRequest) 
 		Priority:    pb.TaskPriority(pb.TaskPriority_value[task.Priority]),
 		Assignee:    uint32(task.Assignee),
 		Status:      pb.TaskStatus(pb.TaskStatus_value[task.Status]),
-		CreatedAt:   task.CreatedAt.Format(time.RFC3339),
-		UpdatedAt:   task.UpdatedAt.Format(time.RFC3339),
-		DeletedAt:   task.DeletedAt.Format(time.RFC3339),
 	}, nil
 }
 
@@ -116,9 +109,6 @@ func (c *GrpcController) UpdateTask(ctx context.Context, req *pb.UpdateTaskReque
 		Priority:    pb.TaskPriority(pb.TaskPriority_value[task.Priority]),
 		Assignee:    uint32(task.Assignee),
 		Status:      pb.TaskStatus(pb.TaskStatus_value[task.Status]),
-		CreatedAt:   task.CreatedAt.Format(time.RFC3339),
-		UpdatedAt:   task.UpdatedAt.Format(time.RFC3339),
-		DeletedAt:   task.DeletedAt.Format(time.RFC3339),
 	}, nil
 }
 

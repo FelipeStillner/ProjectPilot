@@ -45,9 +45,6 @@ message TaskResponse {
   TaskPriority priority = 6;
   uint32 assignee = 7;
   TaskStatus status = 8;
-  string created_at = 9;
-  string updated_at = 10;
-  string deleted_at = 11;
 }
 
 message DeleteTaskResponse {

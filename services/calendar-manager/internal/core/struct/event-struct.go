@@ -9,7 +9,4 @@ type Event struct {
 	Time        time.Time
 	Duration    uint32
 	Attendees   []uint32
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
-	DeletedAt   time.Time
 }

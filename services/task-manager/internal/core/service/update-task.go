@@ -2,7 +2,6 @@ package core
 
 import (
 	"errors"
-	"time"
 
 	core "github.com/FelipeStillner/ProjectPilot/services/task-manager/internal/core/struct"
 )
@@ -29,8 +28,6 @@ func (t *TaskService) UpdateTask(input UpdateTaskInput) (*core.Task, error) {
 		Priority:    input.Priority,
 		Assignee:    input.Assignee,
 		Status:      input.Status,
-		CreatedAt:   time.Now(),
-		UpdatedAt:   time.Now(),
 	}
 
 	return t.taskRepo.Update(task.Id, task)
