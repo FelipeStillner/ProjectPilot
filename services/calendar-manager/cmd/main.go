@@ -17,8 +17,9 @@ func init() {
 }
 
 func main() {
+	redis := a.NewRedis()
 	eventRepo := a.NewEventRepository()
-	googleIntegration := a.NewGoogleIntegration()
+	googleIntegration := a.NewGoogleIntegration(redis)
 	integrations := []port.IntegrationInterface{googleIntegration}
 	calendarService := c.NewCalendarService(eventRepo, integrations)
 	grpcController := a.NewGrpcController(*calendarService)
